@@ -10,5 +10,5 @@ typedef struct
 } CircularBuffer;
 
 CircularBuffer *CircularBuffer_Create(size_t size);
-void CircularBuffer_Push(CircularBuffer *c, Sample input);
-Sample CircularBuffer_Pop(CircularBuffer *c);
+void CircularBuffer_Write(CircularBuffer *c, Sample input);
+Sample CircularBuffer_Read(CircularBuffer *c);

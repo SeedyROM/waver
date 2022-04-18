@@ -89,7 +89,7 @@ int WAVFile_ParseHeader(WAVHeader *h, FILE *f)
 
   // Read the RIFF header
   read = fread(&buf, sizeof(buf), 1, f);
-  if (!read && !strncmp(buf, "RIFF", sizeof(buf)))
+  if (!read && !strncmp((const char *)buf, "RIFF", sizeof(buf)))
     goto error;
 
   // Read the file size
@@ -100,7 +100,7 @@ int WAVFile_ParseHeader(WAVHeader *h, FILE *f)
 
   // Verify the rest of the next marker
   read = fread(&buf, sizeof(buf), 1, f);
-  if (!read && !strncmp(buf, "WAVE", sizeof(buf)))
+  if (!read && !strncmp((const char *)buf, "WAVE", sizeof(buf)))
     goto error;
 
   // Skip the "fmt " marker & last values size, AKA 16 bytes
@@ -119,7 +119,7 @@ int WAVFile_ParseHeader(WAVHeader *h, FILE *f)
   // Check if we recognize the WAV encoding format
   if (!WAVFile_FormatTypeIsValid(h->formatType))
   {
-    fprintf(stderr, "Invalid WAV format type\n", h->formatType);
+    fprintf(stderr, "Invalid WAV format type: %d\n", h->formatType);
     goto error;
   }
   fprintf(stderr, "Sample Type: %s\n", WAVFile_FormatTypeToString(h->formatType));
@@ -156,7 +156,7 @@ int WAVFile_ParseHeader(WAVHeader *h, FILE *f)
 
   // Found the data marker
   read = fread(&buf, sizeof(buf), 1, f);
-  if (!read && !strncmp(buf, "data", sizeof(buf)))
+  if (!read && !strncmp((const char *)buf, "data", sizeof(buf)))
     goto error;
 
   // Get the data chunk size

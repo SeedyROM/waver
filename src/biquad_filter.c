@@ -59,12 +59,13 @@ void BiquadFilter_CalcCoeffs(BiquadFilter *bf, double frequency, double Q, doubl
   // TODO: Also are we prewarping, is this needed here? No tan in sight.
 
   // Pre calcs
-  double A = pow(10, dbGain / 40); // convert to db
+  // TODO: Uncomment A and beta, since we're not using them for a LP
+  // double A = pow(10, dbGain / 40); // convert to db
   double omega = 2 * M_PI * frequency / sampleRate;
   double sn = sin(omega);
   double cs = cos(omega);
   double alpha = sn / (2 * Q);
-  double beta = sqrt(A + A);
+  // double beta = sqrt(A + A);
 
   // Set our coeffs based on filter type
   // NOTE: a0 will usually be generalized to 1 + alpha

@@ -25,7 +25,7 @@ error:
   return NULL;
 }
 
-void CircularBuffer_Push(CircularBuffer *c, Sample input)
+void CircularBuffer_Write(CircularBuffer *c, Sample input)
 {
   c->data[c->index] = input;
 
@@ -39,7 +39,7 @@ void CircularBuffer_Push(CircularBuffer *c, Sample input)
   }
 }
 
-Sample CircularBuffer_Pop(CircularBuffer *c)
+Sample CircularBuffer_Read(CircularBuffer *c)
 {
   return c->data[c->index];
 }

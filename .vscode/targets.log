@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Apr 18 01:38:42 2022
+# Make data base, printed on Mon Apr 18 02:55:47 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ NO_AT_BRIDGE = 1
 # environment
 rvm_docs_type = 
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c06da82b-7dcf-48f2-ab1c-b607b58aed04.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-ee8aefad-f404-4e31-83d4-af28718249ca.sock
 # environment
 rvm_quiet_flag = 
 # environment
@@ -129,7 +129,7 @@ ZSH = /home/rombus/.oh-my-zsh
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 218120
+VSCODE_PID = 234655
 # environment
 XDG_SESSION_TYPE = x11
 # environment
@@ -162,7 +162,7 @@ rvm_ruby_make_install =
 rvm_nightly_flag = 
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# makefile (from 'Makefile', line 40)
+# makefile (from 'Makefile', line 41)
 MKDIR_P = mkdir -p
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
@@ -258,7 +258,7 @@ MAKE_VERSION := 4.3
 GUAKE_TAB_UUID = 11e63199-a09b-4631-888d-0261d0935af4
 # 'override' directive
 .SHELLSTATUS := 0
-# makefile (from 'Makefile', line 19)
+# makefile (from 'Makefile', line 20)
 LDFLAGS = -lm
 # environment
 OPAM_SWITCH_PREFIX = /home/rombus/.opam/default
@@ -279,6 +279,8 @@ GEM_HOME = /home/rombus/.rvm/gems/ruby-2.7.2@global
 # environment
  
 XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makefile', line 19)
+CFLAGS = -Wall -O3
 # makefile (from 'Makefile', line 1)
 TARGET_EXEC = a.out
 # environment
@@ -346,7 +348,7 @@ GDMSESSION = xfce
 # environment
 LC_IDENTIFICATION = en_US.UTF-8
 # variable set hash-table stats:
-# Load=166/1024=16%, Rehash=0, Collisions=26/220=12%
+# Load=167/1024=16%, Rehash=0, Collisions=27/221=12%
 
 # Pattern-specific Variable Values
 
@@ -354,14 +356,14 @@ LC_IDENTIFICATION = en_US.UTF-8
 
 # Directories
 
-# . (device 2049, inode 2498668): 10 files, no impossibilities.
+# . (device 2049, inode 2498668): 12 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 build/%.c.o: %.c
-#  recipe to execute (from 'Makefile', line 27):
+#  recipe to execute (from 'Makefile', line 28):
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
@@ -404,7 +406,7 @@ build/./src/circular_buffer.c.d:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-18 00:49:14.029867491
+#  Last modified 2022-04-18 02:54:07.425127981
 #  File has been updated.
 #  Successfully updated.
 
@@ -413,7 +415,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 33):
+#  recipe to execute (from 'Makefile', line 34):
 	$(RM) -r $(BUILD_DIR)
 
 # Not a target:
@@ -426,7 +428,7 @@ build/a.out: build/./src/circular_buffer.c.o build/./src/biquad_filter.c.o build
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 23):
+#  recipe to execute (from 'Makefile', line 24):
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 # Not a target:
@@ -473,7 +475,7 @@ plot:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 36):
+#  recipe to execute (from 'Makefile', line 37):
 	./plotting/test_plot.sh
 
 .PHONY: clean plot
@@ -489,12 +491,12 @@ plot:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 31 / storage = 415 B / avg = 13 B
-# current buf: size = 8162 B / used = 415 B / count = 31 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 33 / storage = 432 B / avg = 13 B
+# current buf: size = 8162 B / used = 432 B / count = 33 / avg = 13 B
 
-# strcache performance: lookups = 46 / hit rate = 32%
+# strcache performance: lookups = 48 / hit rate = 31%
 # hash-table stats:
-# Load=31/8192=0%, Rehash=0, Collisions=0/46=0%
-# Finished Make data base on Mon Apr 18 01:38:42 2022
+# Load=33/8192=0%, Rehash=0, Collisions=0/48=0%
+# Finished Make data base on Mon Apr 18 02:55:47 2022
 
  
