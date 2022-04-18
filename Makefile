@@ -26,10 +26,13 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-.PHONY: clean
+.PHONY: clean plot
 
 clean:
 	$(RM) -r $(BUILD_DIR)
+
+plot:
+	./plotting/test_plot.sh
 
 -include $(DEPS)
 
