@@ -8,20 +8,20 @@
 #include "sample.h"
 #include "biquad_filter.h"
 
-WAVFile *test_open_wav();
-void test_assert_wav_header(WAVHeader *h);
-void test_wav_file(WAVFile *wf);
+WAVFile *Test_OpenWAV();
+void Test_ConfirmWAVHeader(WAVHeader *h);
+void Test_ProcessWAV(WAVFile *wf);
 
 int main(int argc, char **argv)
 {
   // Open a WAV file
-  WAVFile *wf = test_open_wav();
+  WAVFile *wf = Test_OpenWAV();
 
   // Assert info about our file being decoded correctly
-  test_assert_wav_header(wf->header);
+  Test_ConfirmWAVHeader(wf->header);
 
   // Run some test code to process and graph the audio data
-  test_wav_file(wf);
+  Test_ProcessWAV(wf);
 
   // Free the file
   WAVFile_Free(wf);
@@ -29,7 +29,12 @@ int main(int argc, char **argv)
   return 0;
 }
 
-WAVFile *test_open_wav()
+/**
+ * @brief Open a our test WAV file
+ *
+ * @return WAVFile*
+ */
+WAVFile *Test_OpenWAV()
 {
   // Where our WAV file lives for testing
   const char *path = "./data/snare.wav";
@@ -41,7 +46,12 @@ WAVFile *test_open_wav()
   return wf;
 }
 
-void test_assert_wav_header(WAVHeader *h)
+/**
+ * @brief Assert specific information about snare.wav
+ *
+ * @param h
+ */
+void Test_ConfirmWAVHeader(WAVHeader *h)
 {
   // Check other file info, explanitory
   assert(h->formatType == 1);
@@ -54,7 +64,12 @@ void test_assert_wav_header(WAVHeader *h)
   assert(h->chunkSize - h->dataSize == WAV_HEADER_SIZE - 8);
 }
 
-void test_wav_file(WAVFile *wf)
+/**
+ * @brief Process some samples from snare.wav and do some calc/graph shit
+ *
+ * @param wf
+ */
+void Test_ProcessWAV(WAVFile *wf)
 {
   WAVHeader *h = wf->header;
 
@@ -64,7 +79,7 @@ void test_wav_file(WAVFile *wf)
   // Some local vars
   Sample left, right, rms, x;
   left = right = rms = x = 0;
-  int rmsLookback = 32;
+  int rmsLookback = 16;
 
   // Create a lowpass biquad filter
   BiquadFilter *lp = BiquadFilter_Create(BiquadFilterType_LowPass, 200, 0.5, 0, h->sampleRate);
@@ -83,14 +98,16 @@ void test_wav_file(WAVFile *wf)
       {
         // Get the x[n-j]th sample
         x = Sample_ConvertFromShort(data[i - j]);
-        // Square up
+        // Square up, fight me bro
         rms += x * x;
       }
       // Lowpass filter our RMS
       rms = BiquadFilter_Tick(lp, sqrt(rms));
     }
 
-    // Get sample data
+    // Get sample data for the left and right channels
+    // AKA: This is interleaved, so you need to grab a
+    // sample per channel from the buffer for a current frame
     left = Sample_ConvertFromShort(data[i]);
     right = Sample_ConvertFromShort(data[i + 1]);
 
