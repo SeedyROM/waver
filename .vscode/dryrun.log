@@ -1,0 +1,13 @@
+make build/a.out --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/rombus/Workspace/2022/c/waver'
+mkdir -p build/./src/
+gcc   -c src/circular_buffer.c -o build/./src/circular_buffer.c.o
+mkdir -p build/./src/
+gcc   -c src/sample.c -o build/./src/sample.c.o
+mkdir -p build/./src/
+gcc   -c src/main.c -o build/./src/main.c.o
+mkdir -p build/./src/
+gcc   -c src/wav.c -o build/./src/wav.c.o
+gcc ./build/./src/circular_buffer.c.o ./build/./src/sample.c.o ./build/./src/main.c.o ./build/./src/wav.c.o -o build/a.out 
+make: Leaving directory '/home/rombus/Workspace/2022/c/waver'
+ 

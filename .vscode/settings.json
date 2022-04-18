@@ -1,0 +1,10 @@
+{
+  "editor.formatOnSave": true,
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/rombus/Workspace/2022/c/waver/build",
+      "binaryPath": "/home/rombus/Workspace/2022/c/waver/build/a.out",
+      "binaryArgs": []
+    }
+  ],
+}
