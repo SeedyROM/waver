@@ -25,6 +25,15 @@ error:
   return NULL;
 }
 
+void CircularBuffer_Free(CircularBuffer *c)
+{
+  if (c->data != NULL)
+    free(c->data);
+
+  if (c != NULL)
+    free(c);
+}
+
 void CircularBuffer_Write(CircularBuffer *c, Sample input)
 {
   c->data[c->index] = input;
