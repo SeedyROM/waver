@@ -84,6 +84,9 @@ void Test_ProcessWAV(WAVFile *wf)
   // Create a lowpass biquad filter
   BiquadFilter *lp = BiquadFilter_Create(BiquadFilterType_LowPass, 200, 0.5, 0, h->sampleRate);
 
+  BiquadFilter *lp1 = BiquadFilter_Create(BiquadFilterType_LowPass, 1000, 0.5, 0, h->sampleRate);
+  BiquadFilter *lp2 = BiquadFilter_Create(BiquadFilterType_LowPass, 1000, 0.5, 0, h->sampleRate);
+
   // Print to stdout so we can plot for debugging...
   // Only get every 8th sample for now...
   for (int i = 0; i < 44100 * 2; i += h->channels * 8)
@@ -109,8 +112,11 @@ void Test_ProcessWAV(WAVFile *wf)
     // Get sample data for the left and right channels
     // AKA: This is interleaved, so you need to grab a
     // sample per channel from the buffer for a current frame
-    left = Sample_ConvertFromShort(data[i]);
-    right = Sample_ConvertFromShort(data[i + 1]);
+    // left = Sample_ConvertFromShort(data[i]);
+    // right = Sample_ConvertFromShort(data[i + 1]);
+
+    left = Sample_ConvertFromShort(BiquadFilter_Tick(lp1, data[i]));
+    right = Sample_ConvertFromShort(BiquadFilter_Tick(lp2, data[i + 1]));
 
     // Print to stdout
     printf("%d %f %f %f\n", i, left, right, rms);
