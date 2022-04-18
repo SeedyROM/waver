@@ -86,10 +86,11 @@ void Test_ProcessWAV(WAVFile *wf)
 
   // Print to stdout so we can plot for debugging...
   // Only get every 8th sample for now...
-  for (int i = 0; i < 44100; i += h->channels * 8)
+  for (int i = 0; i < 44100 * 2; i += h->channels * 8)
   {
     // Simple RMS calc attempt, only the left channel, using rmsLookback sample lookback
-    if (i > rmsLookback)
+    // Only calculate every rmsLookback frames into the sample, AKA why we && mod
+    if (i > rmsLookback && i % rmsLookback == 0)
     {
       // Reset our current RMS for the lookback
       rms = 0;
