@@ -4,7 +4,7 @@
 #include "biquad_filter.h"
 
 /**
- * @brief Create a new BiquadFilter of type with the specified params
+ * @brief Create a new 2nd order BiquadFilter of type with the specified params
  *
  * @param type
  * @param frequency
@@ -96,7 +96,7 @@ void BiquadFilter_CalcCoeffs(BiquadFilter *bf, double frequency, double Q, doubl
  * @param input
  * @return double
  */
-double BiquadFilter_Tick(BiquadFilter *bf, double input)
+Sample BiquadFilter_Tick(BiquadFilter *bf, Sample input)
 {
   // Process the incoming sample
   float output = (bf->b0 * input) +

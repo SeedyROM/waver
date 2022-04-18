@@ -10,13 +10,13 @@ CircularBuffer *CircularBuffer_Create(size_t size)
   if (c == NULL)
     goto error;
 
-  c->data = malloc(sizeof(void *) * size);
+  c->data = malloc(sizeof(Sample) * size);
   if (c->data == NULL)
     goto error;
 
   c->size = size;
   c->index = 0;
-  memset(c->data, (void *)0, size);
+  memset(c->data, (Sample)0, size);
 
   return c;
 
@@ -25,17 +25,21 @@ error:
   return NULL;
 }
 
-void CircularBuffer_Push(CircularBuffer *c, void *input)
+void CircularBuffer_Push(CircularBuffer *c, Sample input)
 {
-  c->data[c->index++] = input;
+  c->data[c->index] = input;
 
-  if (c->index >= c->size)
+  if (c->index == c->size - 1)
   {
     c->index = 0;
   }
+  else
+  {
+    c->index++;
+  }
 }
 
-void *CircularBuffer_Pop(CircularBuffer *c)
+Sample CircularBuffer_Pop(CircularBuffer *c)
 {
   return c->data[c->index];
 }
