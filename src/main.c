@@ -8,7 +8,28 @@
 #include "sample.h"
 #include "biquad_filter.h"
 
+WAVFile *test_open_wav();
+void test_assert_wav_header(WAVHeader *h);
+void test_wav_file(WAVFile *wf);
+
 int main(int argc, char **argv)
+{
+  // Open a WAV file
+  WAVFile *wf = test_open_wav();
+
+  // Assert info about our file being decoded correctly
+  test_assert_wav_header(wf->header);
+
+  // Run some test code to process and graph the audio data
+  test_wav_file(wf);
+
+  // Free the file
+  WAVFile_Free(wf);
+
+  return 0;
+}
+
+WAVFile *test_open_wav()
 {
   // Where our WAV file lives for testing
   const char *path = "./data/snare.wav";
@@ -17,9 +38,11 @@ int main(int argc, char **argv)
   WAVFile *wf = WAVFile_Open(path);
   assert(wf != NULL);
 
-  // Get the WAV header
-  WAVHeader *h = wf->header;
+  return wf;
+}
 
+void test_assert_wav_header(WAVHeader *h)
+{
   // Check other file info, explanitory
   assert(h->formatType == 1);
   assert(h->channels == 2);
@@ -29,6 +52,11 @@ int main(int argc, char **argv)
   assert(h->bitsPerSample == 16);
   // Assert we read the entire 44 byte header and our data is ready to be read
   assert(h->chunkSize - h->dataSize == WAV_HEADER_SIZE - 8);
+}
+
+void test_wav_file(WAVFile *wf)
+{
+  WAVHeader *h = wf->header;
 
   // Read our data
   int16_t *data = wf->data;
@@ -48,7 +76,7 @@ int main(int argc, char **argv)
     // Simple RMS calc attempt, only the left channel, using rmsLookback sample lookback
     if (i > rmsLookback)
     {
-      // Reset our current RMS
+      // Reset our current RMS for the lookback
       rms = 0;
       // Integrate discretely by rmsLookback samples
       for (int j = rmsLookback; j > 0; j--)
@@ -69,9 +97,4 @@ int main(int argc, char **argv)
     // Print to stdout
     printf("%d %f %f %f\n", i, left, right, rms);
   }
-
-  // Free the file
-  WAVFile_Free(wf);
-
-  return 0;
 }
