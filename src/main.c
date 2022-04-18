@@ -6,6 +6,7 @@
 
 #include "wav.h"
 #include "sample.h"
+#include "biquad_filter.h"
 
 int main(int argc, char **argv)
 {
@@ -37,20 +38,28 @@ int main(int argc, char **argv)
   left = right = rms = x = 0;
   int rmsLookback = 32;
 
+  // Create a lowpass biquad filter
+  BiquadFilter *lp = BiquadFilter_Create(BiquadFilterType_LowPass, 200, 0.5, 0, h->sampleRate);
+
   // Print to stdout so we can plot for debugging...
-  // Only get every 4th sample for now...
+  // Only get every 8th sample for now...
   for (int i = 0; i < 44100; i += h->channels * 8)
   {
     // Simple RMS calc attempt, only the left channel, using rmsLookback sample lookback
     if (i > rmsLookback)
     {
+      // Reset our current RMS
       rms = 0;
+      // Integrate discretely by rmsLookback samples
       for (int j = rmsLookback; j > 0; j--)
       {
+        // Get the x[n-j]th sample
         x = Sample_ConvertFromShort(data[i - j]);
+        // Square up
         rms += x * x;
       }
-      rms = sqrt(rms);
+      // Lowpass filter our RMS
+      rms = BiquadFilter_Tick(lp, sqrt(rms));
     }
 
     // Get sample data
