@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Apr 17 23:34:26 2022
+# Make data base, printed on Mon Apr 18 01:38:42 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ NO_AT_BRIDGE = 1
 # environment
 rvm_docs_type = 
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e90c122f-fd87-4d05-b070-64f23e99a8b6.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c06da82b-7dcf-48f2-ab1c-b607b58aed04.sock
 # environment
 rvm_quiet_flag = 
 # environment
@@ -101,7 +101,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from 'Makefile', line 11)
-SRCS := ./src/circular_buffer.c ./src/sample.c ./src/main.c ./src/wav.c
+SRCS := ./src/circular_buffer.c ./src/biquad_filter.c ./src/sample.c ./src/main.c ./src/wav.c
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -129,7 +129,7 @@ ZSH = /home/rombus/.oh-my-zsh
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 189382
+VSCODE_PID = 218120
 # environment
 XDG_SESSION_TYPE = x11
 # environment
@@ -162,12 +162,12 @@ rvm_ruby_make_install =
 rvm_nightly_flag = 
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
-# makefile (from 'Makefile', line 36)
+# makefile (from 'Makefile', line 40)
 MKDIR_P = mkdir -p
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # makefile (from 'Makefile', line 12)
-OBJS := ./build/./src/circular_buffer.c.o ./build/./src/sample.c.o ./build/./src/main.c.o ./build/./src/wav.c.o
+OBJS := ./build/./src/circular_buffer.c.o ./build/./src/biquad_filter.c.o ./build/./src/sample.c.o ./build/./src/main.c.o ./build/./src/wav.c.o
 # makefile
 SHELL = /bin/sh
 # default
@@ -258,6 +258,8 @@ MAKE_VERSION := 4.3
 GUAKE_TAB_UUID = 11e63199-a09b-4631-888d-0261d0935af4
 # 'override' directive
 .SHELLSTATUS := 0
+# makefile (from 'Makefile', line 19)
+LDFLAGS = -lm
 # environment
 OPAM_SWITCH_PREFIX = /home/rombus/.opam/default
 # environment
@@ -275,6 +277,7 @@ MOZ_PLUGIN_PATH = /usr/lib/mozilla/plugins
 # environment
 GEM_HOME = /home/rombus/.rvm/gems/ruby-2.7.2@global
 # environment
+ 
 XDG_RUNTIME_DIR = /run/user/1000
 # makefile (from 'Makefile', line 1)
 TARGET_EXEC = a.out
@@ -284,7 +287,6 @@ COLORTERM = truecolor
 XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
- 
 # makefile (from 'Makefile', line 4)
 BUILD_DIR = ./build
 # environment
@@ -310,7 +312,7 @@ INC_DIRS := ./src
 # automatic
 <F = $(notdir $<)
 # makefile (from 'Makefile', line 13)
-DEPS := ./build/./src/circular_buffer.c.d ./build/./src/sample.c.d ./build/./src/main.c.d ./build/./src/wav.c.d
+DEPS := ./build/./src/circular_buffer.c.d ./build/./src/biquad_filter.c.d ./build/./src/sample.c.d ./build/./src/main.c.d ./build/./src/wav.c.d
 # default
 SUFFIXES := 
 # environment
@@ -344,7 +346,7 @@ GDMSESSION = xfce
 # environment
 LC_IDENTIFICATION = en_US.UTF-8
 # variable set hash-table stats:
-# Load=165/1024=16%, Rehash=0, Collisions=26/219=12%
+# Load=166/1024=16%, Rehash=0, Collisions=26/220=12%
 
 # Pattern-specific Variable Values
 
@@ -352,19 +354,26 @@ LC_IDENTIFICATION = en_US.UTF-8
 
 # Directories
 
-# . (device 2049, inode 2498668): 8 files, no impossibilities.
+# . (device 2049, inode 2498668): 10 files, no impossibilities.
 
-# 8 files, no impossibilities in 1 directories.
+# 10 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 build/%.c.o: %.c
-#  recipe to execute (from 'Makefile', line 26):
+#  recipe to execute (from 'Makefile', line 27):
 	$(MKDIR_P) $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
+
+# Not a target:
+build/./src/biquad_filter.c.d:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
 
 # Not a target:
 build/./src/main.c.d:
@@ -380,6 +389,12 @@ build/./src/circular_buffer.c.o:
 #  File has not been updated.
 
 # Not a target:
+build/./src/biquad_filter.c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 build/./src/circular_buffer.c.d:
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -389,7 +404,7 @@ build/./src/circular_buffer.c.d:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-13 21:00:15.068209597
+#  Last modified 2022-04-18 00:49:14.029867491
 #  File has been updated.
 #  Successfully updated.
 
@@ -398,7 +413,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 32):
+#  recipe to execute (from 'Makefile', line 33):
 	$(RM) -r $(BUILD_DIR)
 
 # Not a target:
@@ -407,11 +422,11 @@ build/./src/main.c.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-build/a.out: build/./src/circular_buffer.c.o build/./src/sample.c.o build/./src/main.c.o build/./src/wav.c.o
+build/a.out: build/./src/circular_buffer.c.o build/./src/biquad_filter.c.o build/./src/sample.c.o build/./src/main.c.o build/./src/wav.c.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 22):
+#  recipe to execute (from 'Makefile', line 23):
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 # Not a target:
@@ -453,26 +468,33 @@ build/./src/wav.c.o:
 #  Modification time never checked.
 #  File has not been updated.
 
-.PHONY: clean
+plot:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 36):
+	./plotting/test_plot.sh
+
+.PHONY: clean plot
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=15/1024=1%, Rehash=0, Collisions=1/35=3%
+# Load=18/1024=2%, Rehash=0, Collisions=1/42=2%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
- 
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 338 B / avg = 13 B
-# current buf: size = 8162 B / used = 338 B / count = 26 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 31 / storage = 415 B / avg = 13 B
+# current buf: size = 8162 B / used = 415 B / count = 31 / avg = 13 B
 
-# strcache performance: lookups = 38 / hit rate = 31%
+# strcache performance: lookups = 46 / hit rate = 32%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=0/38=0%
-# Finished Make data base on Sun Apr 17 23:34:26 2022
+# Load=31/8192=0%, Rehash=0, Collisions=0/46=0%
+# Finished Make data base on Mon Apr 18 01:38:42 2022
 
  

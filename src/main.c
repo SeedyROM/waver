@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <math.h>
 
 #include "wav.h"
 #include "sample.h"
@@ -30,15 +31,34 @@ int main(int argc, char **argv)
 
   // Read our data
   int16_t *data = wf->data;
-  int oneSecond = h->sampleRate / h->channels;
-  Sample left = 0, right = 0;
+
+  // Some local vars
+  Sample left, right, rms, x;
+  left = right = rms = x = 0;
+  int rmsLookback = 32;
 
   // Print to stdout so we can plot for debugging...
-  for (int i = 0; i < oneSecond; i++)
+  // Only get every 4th sample for now...
+  for (int i = 0; i < 44100; i += h->channels * 8)
   {
-    left = Sample_ConvertFromShort(*data++);
-    right = Sample_ConvertFromShort(*data++);
-    printf("%d %f %f\n", i, left, right);
+    // Simple RMS calc attempt, only the left channel, using rmsLookback sample lookback
+    if (i > rmsLookback)
+    {
+      rms = 0;
+      for (int j = rmsLookback; j > 0; j--)
+      {
+        x = Sample_ConvertFromShort(data[i - j]);
+        rms += x * x;
+      }
+      rms = sqrt(rms);
+    }
+
+    // Get sample data
+    left = Sample_ConvertFromShort(data[i]);
+    right = Sample_ConvertFromShort(data[i + 1]);
+
+    // Print to stdout
+    printf("%d %f %f %f\n", i, left, right, rms);
   }
 
   // Free the file
