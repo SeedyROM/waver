@@ -1,5 +1,6 @@
-set terminal wxt size 1300,600
+set terminal wxt size 1300,720
 set multiplot layout 3, 1
+set ytic 0.075
 
 # You can literally replace everything after plot with just u in stead of using etc
 # Don't do that for readability here.

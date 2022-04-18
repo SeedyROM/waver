@@ -89,7 +89,7 @@ void Test_ProcessWAV(WAVFile *wf)
   for (int i = 0; i < 44100 * 2; i += h->channels * 8)
   {
     // Simple RMS calc attempt, only the left channel, using rmsLookback sample lookback
-    // Only calculate every rmsLookback frames into the sample, AKA why we && mod
+    // Only calculate every rmsLookback frames into the sample, AKA why we && i mod rmsLookback
     if (i > rmsLookback && i % rmsLookback == 0)
     {
       // Reset our current RMS for the lookback
