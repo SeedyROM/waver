@@ -8,7 +8,7 @@ Reading in a PCM 16 bit WAV file and processing the audio data, below is an exam
 
 `make`
 
-## Show the test graph
+## Plot Test Graph
 
 `make plot`
 
